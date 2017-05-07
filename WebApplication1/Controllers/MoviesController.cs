@@ -7,6 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WebApplication1.Models;
 
+
+
+
 namespace WebApplication1.Controllers
 {
     public class MoviesController : Controller
@@ -28,7 +31,16 @@ namespace WebApplication1.Controllers
                 var name = dal.GetNameSPDemo("Europe");
             }
 
-            return View(await _context.Movie.ToListAsync());
+            using (var context = new UserDataContext())
+            {
+                context.Database.EnsureCreated();
+                var user = new User { Name = "·ßÅ­µÄTryCatch" };
+                context.Add(user);
+
+                context.SaveChanges();
+            }
+
+                return View(await _context.Movie.ToListAsync());
         }
 
         // GET: Movies/Details/5

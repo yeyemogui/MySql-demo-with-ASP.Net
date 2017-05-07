@@ -1,6 +1,10 @@
 ﻿using System;
-using System.Data;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+
+using System.Linq;
+using System.Text;
 using MySql.Data;
 using MySql.Data.MySqlClient;
  
@@ -106,5 +110,22 @@ namespace WebApplication1.Models
             }
             return 0;
         }
+
+        public List<string> GetNameSPDemo(string continent)
+        {
+            var rtn = "country_hos";
+            var cmd = new MySqlCommand(rtn, conn);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("@con", continent);
+            var reader = cmd.ExecuteReader();
+
+            var ret = new List<string>();
+            while(reader.Read())
+            {
+                ret.Add(reader[0] as string);
+            }
+            return ret;
+        }
+ 
     }
 }

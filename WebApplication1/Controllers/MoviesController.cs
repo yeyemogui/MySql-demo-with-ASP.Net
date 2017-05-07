@@ -24,6 +24,8 @@ namespace WebApplication1.Controllers
             using (var dal = new Dal())
             {
                 var data = dal.ReadCityData("Oceania");
+
+                var name = dal.GetNameSPDemo("Europe");
             }
 
             return View(await _context.Movie.ToListAsync());
